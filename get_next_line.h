@@ -1,8 +1,12 @@
-#ifndef FT_GET_NEXT_LINE
-# define FT_GET_NEXT_LINE
+#ifndef GET_NEXT_LINE
+# define GET_NEXT_LINE
 
 
 #endif
 
 
-int open (const char* path, int flags [, int mode ]);
+
+ssize_t read(int fildes, void *buf, size_t nbyte)
+{
+	buf =
+}
