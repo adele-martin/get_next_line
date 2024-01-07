@@ -3,11 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
+/*   By: ademarti <adelemartin@student.42.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/05 17:30:36 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/07 16:58:09 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char *get_next_line(int fd);
+#include <fcntl.h>
+
+int open (const char* path, int flags [, int mode ]);
+
+char *get_next_line(int fd)
+{
+
+open();
+read();
+
+}
