@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/09 15:20:36 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:58:14 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char *put_in_stash(int fd)
 	if (!buffer)
 		return NULL;
 	read(fd, buffer, BUFFER_SIZE);
-	ssize_t bytesRead;
+	//ssize_t bytesRead;
     // while ((bytesRead = read(fd, buffer, BUFFER_SIZE)) > 0)
 	// {
     //     read(fd, buffer, BUFFER_SIZE);
@@ -42,8 +42,10 @@ int make_line(char *stash)
 	while (stash[i] != '\0')
 	{
 		if (stash[i] == '\n')
+		{
 			sub = ft_substr(stash ,stash[0], stash[i]);
 			break;
+		}
 		i++;
 	}
 	printf("%s", sub);
