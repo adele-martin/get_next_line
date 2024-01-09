@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:53:38 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/09 14:01:02 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:36:26 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 5
+# define BUFFER_SIZE 1
 # endif
 
 #endif
