@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:53:38 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/09 14:36:26 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:19:20 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 #include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 5
 # endif
+
+size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif

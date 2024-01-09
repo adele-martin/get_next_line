@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/09 14:41:45 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:20:36 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,34 @@ char *put_in_stash(int fd)
     //     read(fd, buffer, BUFFER_SIZE);
     // }
 	stash = buffer;
-	printf("%s", stash);
+	//printf("%s", stash);
 
-	return (buffer);
+	return (stash);
 }
-
 //Where do I free my buffer??
+
+int make_line(char *stash)
+{
+	size_t i;
+	i = 0;
+	char *sub;
+	while (stash[i] != '\0')
+	{
+		if (stash[i] == '\n')
+			sub = ft_substr(stash ,stash[0], stash[i]);
+			break;
+		i++;
+	}
+	printf("%s", sub);
+	return (0);
+}
 
 char *get_next_line(int fd)
 {
-	//make_line();
+	put_in_stash(fd);
+	make_line(put_in_stash(fd));
 	//update_stash();
-	return (put_in_stash(fd));
+	return (0);
 }
 
 int main()
