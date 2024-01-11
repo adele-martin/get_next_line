@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/11 16:57:00 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:07:40 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ char *put_in_stash(int fd, char *buffer)
 	while (bytesRead > 0)
 	{
 		bytesRead = read(fd, buffer, BUFFER_SIZE);
-		// if (bytesRead == -1 )
-		// {
-		// 	free(stash);
-		// 	return NULL;
-		// }
-		// else if (bytesRead == 0)
-		// 	break;
-		buffer[bytesRead] = '\0';
+		if (bytesRead == -1 )
+		{
+			free(stash);
+			return NULL;
+		}
+		if (bytesRead == 0)
+			break;
+		// buffer[bytesRead] = '\0';
 		if (!stash)
 			stash = ft_strdup("");
 		temp = stash;
@@ -39,6 +39,8 @@ char *put_in_stash(int fd, char *buffer)
 		if (ft_strchr(stash, '\0'))
 			break;
 	}
+	free(buffer);
+	buffer = NULL;
 	printf("%s", stash);
 	return (stash);
 }
@@ -51,14 +53,14 @@ int make_line(char *stash)
 
 	while (stash[i] != '\0')
 	{
-		if (ft_strchr(stash, '\n'))
+		if (stash[i] == '\n')
 		{
-			sub = ft_substr(stash , 0, stash[i]);
-			break;
+			stash = ft_substr(stash , 0, i);
 		}
-		i++;
+		else
+			i++;
 	}
-	printf("%s", sub);
+	printf("%s", stash);
 	return (0);
 }
 
@@ -73,10 +75,10 @@ char *get_next_line(int fd)
 	{
 		return NULL;
     }
-	// put_in_stash(fd, buffer);
-	// make_line(put_in_stash(fd, buffer));
+	make_line(put_in_stash(fd, buffer));
+	char *hey = hey;
 	//update_stash();char *put_in_stash(int fd, char *buffer)
-	return (put_in_stash(fd, buffer));
+	return (hey);
 }
 
 int main()
