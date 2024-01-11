@@ -6,30 +6,41 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/11 12:05:47 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:57:00 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "get_next_line.h"
 
-char *put_in_stash(int fd)
+char *put_in_stash(int fd, char *buffer)
 {
 	static char	*stash;
-	char	*buffer;
+	char *temp;
 
-	buffer = (char*)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (!buffer)
-		return NULL;
-	size_t bytesRead;
-	while (bytesRead> 0)
+	int bytesRead;
+	bytesRead = 1;
+	while (bytesRead > 0)
 	{
 		bytesRead = read(fd, buffer, BUFFER_SIZE);
+		// if (bytesRead == -1 )
+		// {
+		// 	free(stash);
+		// 	return NULL;
+		// }
+		// else if (bytesRead == 0)
+		// 	break;
 		buffer[bytesRead] = '\0';
-	// stash = buffer;
+		if (!stash)
+			stash = ft_strdup("");
+		temp = stash;
+		stash = ft_strjoin(temp, buffer);
+		free(temp);
+		if (ft_strchr(stash, '\0'))
+			break;
 	}
-	printf("%s", buffer);
-	return (buffer);
+	printf("%s", stash);
+	return (stash);
 }
 
 int make_line(char *stash)
@@ -53,22 +64,31 @@ int make_line(char *stash)
 
 char *get_next_line(int fd)
 {
-	put_in_stash(fd);
-	make_line(put_in_stash(fd));
-	//update_stash();
-	return (put_in_stash(fd));
+	char	*buffer;
+
+	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	if (!buffer)
+		return NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		return NULL;
+    }
+	// put_in_stash(fd, buffer);
+	// make_line(put_in_stash(fd, buffer));
+	//update_stash();char *put_in_stash(int fd, char *buffer)
+	return (put_in_stash(fd, buffer));
 }
 
 int main()
 {
 	int fd;
 
-	fd = open("text.txt", O_RDONLY);
-	// char *line = get_next_line(fd);
+	fd = open("test.txt", O_RDONLY);
+	// char *lins = get_next_line(fd);
 	get_next_line(fd);
 	// free(fd);
 	// printf("%s" ,line);
 	//get_next_line(fd);6
-	close(fd);
+	// close(fd);
 
 }
