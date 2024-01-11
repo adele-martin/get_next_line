@@ -6,19 +6,18 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/11 17:07:40 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:48:48 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "get_next_line.h"
 
-char *put_in_stash(int fd, char *buffer)
+char *put_in_stash(int fd, char *buffer, char *stash)
 {
-	static char	*stash;
 	char *temp;
 
-	int bytesRead;
+	ssize_t bytesRead;
 	bytesRead = 1;
 	while (bytesRead > 0)
 	{
@@ -28,24 +27,25 @@ char *put_in_stash(int fd, char *buffer)
 			free(stash);
 			return NULL;
 		}
-		if (bytesRead == 0)
+		else if (bytesRead == 0)
 			break;
-		// buffer[bytesRead] = '\0';
+		buffer[bytesRead] = '\0';
 		if (!stash)
 			stash = ft_strdup("");
 		temp = stash;
-		stash = ft_strjoin(temp, buffer);
+		stash = ft_strjoin(buffer, temp);
 		free(temp);
+		temp = NULL;
+		free(buffer);
+		buffer = NULL;
 		if (ft_strchr(stash, '\0'))
 			break;
 	}
-	free(buffer);
-	buffer = NULL;
 	printf("%s", stash);
 	return (stash);
 }
 
-int make_line(char *stash)
+char *make_line(char *stash)
 {
 	size_t i;
 	i = 0;
@@ -55,30 +55,41 @@ int make_line(char *stash)
 	{
 		if (stash[i] == '\n')
 		{
-			stash = ft_substr(stash , 0, i);
+			sub = ft_substr(stash , stash[0], i);
 		}
 		else
 			i++;
 	}
-	printf("%s", stash);
-	return (0);
+	// printf("%s", stash);
+	return (sub);
 }
 
 char *get_next_line(int fd)
 {
 	char	*buffer;
+	char *line;
+	static char	*stash;
 
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		return NULL;
+		free(stash);
+		free(buffer);
+		stash = NULL;
+		buffer = NULL;
+		return (NULL);
     }
-	make_line(put_in_stash(fd, buffer));
-	char *hey = hey;
+
+	line = put_in_stash(fd, buffer, stash);
+	// free(buffer);
+	buffer = NULL;
+	if (!line)
+        return (NULL);
+	stash = make_line(line);
 	//update_stash();char *put_in_stash(int fd, char *buffer)
-	return (hey);
+	return (stash);
 }
 
 int main()
