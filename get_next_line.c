@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/11 17:48:48 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:00:52 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,12 @@ char *put_in_stash(int fd, char *buffer, char *stash)
 		if (!stash)
 			stash = ft_strdup("");
 		temp = stash;
-		stash = ft_strjoin(buffer, temp);
+		stash = ft_strjoin(temp, buffer);
 		free(temp);
 		temp = NULL;
-		free(buffer);
-		buffer = NULL;
-		if (ft_strchr(stash, '\0'))
+		if (ft_strchr(stash, '\n'))
 			break;
 	}
-	printf("%s", stash);
 	return (stash);
 }
 
@@ -50,17 +47,12 @@ char *make_line(char *stash)
 	size_t i;
 	i = 0;
 	char *sub;
-
-	while (stash[i] != '\0')
-	{
-		if (stash[i] == '\n')
-		{
-			sub = ft_substr(stash , stash[0], i);
-		}
-		else
-			i++;
-	}
-	// printf("%s", stash);
+	while (stash[i] != '\0' || stash[i] == '\n')
+		i++;
+	if (stash[i] == '\0' || stash[1] == '\0')
+		return (NULL);
+	sub = ft_strdup(stash);
+	printf("%s", sub);
 	return (sub);
 }
 
@@ -83,7 +75,7 @@ char *get_next_line(int fd)
     }
 
 	line = put_in_stash(fd, buffer, stash);
-	// free(buffer);
+	free(buffer);
 	buffer = NULL;
 	if (!line)
         return (NULL);
