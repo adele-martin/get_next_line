@@ -6,14 +6,14 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/15 13:51:20 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:14:34 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "get_next_line.h"
 
-char *put_in_stash(int fd, char *buffer, char *stash)
+static char *put_in_stash(int fd, char *buffer, char *stash)
 {
 	char	*temp;
 	ssize_t	bytesread;
@@ -42,7 +42,7 @@ char *put_in_stash(int fd, char *buffer, char *stash)
 	return (stash);
 }
 
-char *make_line(char *stash)
+static char *make_line(char *stash)
 {
 	size_t	i;
 	char	*sub;
@@ -52,7 +52,7 @@ char *make_line(char *stash)
 	{
 		i++;
 	}
-	if (stash[i] == '\0' || stash[i + 1] == '\0')
+	if (stash[i] == '\0' || stash[1] == '\0')
 		return (NULL);
 	else
 	{
@@ -63,6 +63,12 @@ char *make_line(char *stash)
 	ft_strlcpy(sub, stash, i + 1);
 		sub[i] = '\n';
 		sub[i + 1] = '\0';
+	// printf("%s", sub);
+    if (*sub == 0)
+    {
+        free(sub);
+        sub = NULL;
+    }
 	return (sub);
 }
 
@@ -91,10 +97,8 @@ char *get_next_line(int fd)
 	if (!line)
         return (NULL);
 	result = make_line(line);
-	// update_stash(to_be_emptied);
 	return (result);
 }
-
 
 int main()
 {
@@ -108,13 +112,6 @@ int main()
 	result = get_next_line(fd);
 	printf("%s", result);
 	free(result);
-	result = get_next_line(fd);
-	printf("%s", result);
-	free(result);
-	// free(fd);
-	// printf("%s" ,line);
-	//get_next_line(fd);6
-	// close(fd);
 
 }
 

@@ -6,13 +6,11 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:30:58 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/15 13:17:35 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:27:59 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
