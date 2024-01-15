@@ -6,11 +6,34 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:30:58 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/11 11:28:00 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:17:35 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	count;
+	size_t	size;
+
+	count = 0;
+	size = 0;
+	if (!dst)
+		return (0);
+	size = ft_strlen(src);
+	if (!dstsize)
+		return (size);
+	while (src[count] && count < dstsize - 1)
+	{
+		dst[count] = src[count];
+		count++;
+	}
+	dst[count] = '\0';
+	return (size);
+}
 
 size_t	ft_strlen(const char *s)
 {

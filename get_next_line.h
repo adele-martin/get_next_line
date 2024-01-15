@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:53:38 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/12 14:37:53 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:28:28 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 2
 # endif
 
 size_t	ft_strlen(const char *s);
@@ -29,5 +29,6 @@ char *make_line(char *stash);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 #endif

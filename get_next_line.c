@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/12 15:00:52 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:49:52 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 
 char *put_in_stash(int fd, char *buffer, char *stash)
 {
-	char *temp;
+	char	*temp;
+	ssize_t	bytesread;
 
-	ssize_t bytesRead;
-	bytesRead = 1;
-	while (bytesRead > 0)
+	bytesread = 1;
+	while (bytesread > 0)
 	{
-		bytesRead = read(fd, buffer, BUFFER_SIZE);
-		if (bytesRead == -1 )
+		bytesread = read(fd, buffer, BUFFER_SIZE);
+		if (bytesread == -1)
 		{
 			free(stash);
 			return NULL;
 		}
-		else if (bytesRead == 0)
+		else if (bytesread == 0)
 			break;
-		buffer[bytesRead] = '\0';
+		buffer[bytesread] = '\0';
 		if (!stash)
 			stash = ft_strdup("");
 		temp = stash;
@@ -44,23 +44,34 @@ char *put_in_stash(int fd, char *buffer, char *stash)
 
 char *make_line(char *stash)
 {
-	size_t i;
+	size_t	i;
+	char	*sub;
+
 	i = 0;
-	char *sub;
-	while (stash[i] != '\0' || stash[i] == '\n')
+	while (stash[i] != '\0' && stash[i] != '\n')
+	{
 		i++;
-	if (stash[i] == '\0' || stash[1] == '\0')
+	}
+	if (stash[i] == '\0' || stash[i + 1] == '\0')
 		return (NULL);
-	sub = ft_strdup(stash);
-	printf("%s", sub);
+	else
+	{
+	sub = (char *)malloc(sizeof(char) * (i + 2));
+	if (!sub)
+		return (NULL);
+	}
+	ft_strlcpy(sub, stash, i + 1);
+		sub[i] = '\n';
+		sub[i + 1] = '\0';
 	return (sub);
 }
 
 char *get_next_line(int fd)
 {
-	char	*buffer;
-	char *line;
+	char		*buffer;
+	char		*line;
 	static char	*stash;
+	char *result;
 
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
@@ -79,21 +90,31 @@ char *get_next_line(int fd)
 	buffer = NULL;
 	if (!line)
         return (NULL);
-	stash = make_line(line);
-	//update_stash();char *put_in_stash(int fd, char *buffer)
-	return (stash);
+	result = make_line(line);
+	// update_stash(to_be_emptied);
+	return (result);
 }
+
 
 int main()
 {
 	int fd;
+	char *result;
 
 	fd = open("test.txt", O_RDONLY);
-	// char *lins = get_next_line(fd);
-	get_next_line(fd);
+	result = get_next_line(fd);
+	printf("%s", result);
+	free(result);
+	result = get_next_line(fd);
+	printf("%s", result);
+	free(result);
+	result = get_next_line(fd);
+	printf("%s", result);
+	free(result);
 	// free(fd);
 	// printf("%s" ,line);
 	//get_next_line(fd);6
 	// close(fd);
 
 }
+
