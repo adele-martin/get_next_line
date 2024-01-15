@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/15 18:38:51 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:54:49 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,36 @@ static char *make_line(char *stash)
         free(sub);
         sub = NULL;
     }
-	// printf("%s", sub);
 	return (sub);
+}
+
+char	*remove_line_from_stash(char *stash, char *line)
+{
+	char	*temp;
+	int		i;
+	int		j;
+
+	if (!stash)
+		return (NULL);
+	temp = (char *)malloc(sizeof(char *) * (
+				ft_strlen(stash) - ft_strlen(line) + 1));
+	if (!temp)
+	{
+		free(stash);
+		return (NULL);
+	}
+	j = 0;
+	i = ft_strlen(line);
+	while (stash[i])
+		temp[j++] = stash[i++];
+	temp[j] = '\0';
+	free(stash);
+	if (!*temp)
+	{
+		free(temp);
+		temp = NULL;
+	}
+	return (temp);
 }
 
 char *get_next_line(int fd)
@@ -94,12 +122,10 @@ char *get_next_line(int fd)
     }
 
 	line = put_in_stash(fd, buffer, stash);
-	// free(buffer);
-	// buffer = NULL;
 	if (!line)
         return (NULL);
 	result = make_line(line);
-	// update_stash(to_be_emptied);
+	stash = remove_line_from_stash(line, result);
 	return (result);
 }
 
@@ -119,10 +145,13 @@ int main()
 	result = get_next_line(fd);
 	printf("%s", result);
 	free(result);
-	// free(fd);
-	// printf("%s" ,line);
-	//get_next_line(fd);6
-	// close(fd);
+	result = get_next_line(fd);
+	printf("%s", result);
+	free(result);
+	result = get_next_line(fd);
+	printf("%s", result);
+	free(result);
+	close(fd);
 
 }
 
