@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/15 17:14:34 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:38:51 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static char *put_in_stash(int fd, char *buffer, char *stash)
 		if (ft_strchr(stash, '\n'))
 			break;
 	}
+	free(buffer);
+	buffer = NULL;
 	return (stash);
 }
 
@@ -63,12 +65,12 @@ static char *make_line(char *stash)
 	ft_strlcpy(sub, stash, i + 1);
 		sub[i] = '\n';
 		sub[i + 1] = '\0';
-	// printf("%s", sub);
     if (*sub == 0)
     {
         free(sub);
         sub = NULL;
     }
+	// printf("%s", sub);
 	return (sub);
 }
 
@@ -92,13 +94,15 @@ char *get_next_line(int fd)
     }
 
 	line = put_in_stash(fd, buffer, stash);
-	free(buffer);
-	buffer = NULL;
+	// free(buffer);
+	// buffer = NULL;
 	if (!line)
         return (NULL);
 	result = make_line(line);
+	// update_stash(to_be_emptied);
 	return (result);
 }
+
 
 int main()
 {
@@ -112,6 +116,13 @@ int main()
 	result = get_next_line(fd);
 	printf("%s", result);
 	free(result);
+	result = get_next_line(fd);
+	printf("%s", result);
+	free(result);
+	// free(fd);
+	// printf("%s" ,line);
+	//get_next_line(fd);6
+	// close(fd);
 
 }
 

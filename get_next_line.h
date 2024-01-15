@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:53:38 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/15 17:07:49 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:38:55 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@
 #include <stdlib.h>
 
 # ifndef BUFFER_SIZE
-# define BUFFER_SIZE 2
+# define BUFFER_SIZE 1
 # endif
 
 static char *put_in_stash(int fd, char *buffer, char *stash);
 static char *make_line(char *stash);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
+char	*remove_line_from_stash(char *stash, char *line);
 // static char *put_in_stash(int fd, char *buffer, char *stash);
 // char *get_next_line(int fd);
 // static char *make_line(char *stash);
