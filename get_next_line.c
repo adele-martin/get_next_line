@@ -6,14 +6,14 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/15 18:54:49 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 19:17:04 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "get_next_line.h"
 
-static char *put_in_stash(int fd, char *buffer, char *stash)
+ char *put_in_stash(int fd, char *buffer, char *stash)
 {
 	char	*temp;
 	ssize_t	bytesread;
@@ -44,7 +44,7 @@ static char *put_in_stash(int fd, char *buffer, char *stash)
 	return (stash);
 }
 
-static char *make_line(char *stash)
+char *make_line(char *stash)
 {
 	size_t	i;
 	char	*sub;

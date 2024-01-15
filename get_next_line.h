@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 14:53:38 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/15 18:52:33 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/15 19:09:41 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,15 @@
 # define BUFFER_SIZE 1000
 # endif
 
-static char *put_in_stash(int fd, char *buffer, char *stash);
+char *put_in_stash(int fd, char *buffer, char *stash);
 char	*remove_line_from_stash(char *stash, char *line);
-static char *make_line(char *stash);
+ char *make_line(char *stash);
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s);
 char	*remove_line_from_stash(char *stash, char *line);
-// static char *put_in_stash(int fd, char *buffer, char *stash);
-// char *get_next_line(int fd);
-// static char *make_line(char *stash);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-// static char    *ft_strchr(char *s, int c);
 
 #endif
