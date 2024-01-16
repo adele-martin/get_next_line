@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 17:30:58 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/16 15:28:49 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/16 17:01:58 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,26 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	unsigned int	i;
+	char			cc;
+
+	i = 0;
+	cc = (char) c;
+	while (s[i] != '\0')
+	{
+		if (s[i] == cc)
+		{
+			return ((char *)&s[i]);
+		}
+		i++;
+	}
+	if (s[i] == cc)
+		return ((char *)&s[i]);
+	return (NULL);
+}
+
 char	*ft_strdup(const char *s)
 {
 	char	*dup;
@@ -68,54 +88,6 @@ char	*ft_strdup(const char *s)
 	dup[i] = '\0';
 	return (dup);
 }
-
-char	*ft_strchr(const char *s, int c)
-{
-	unsigned int	i;
-	char			cc;
-
-	i = 0;
-	cc = (char) c;
-	while (s[i] != '\0')
-	{
-		if (s[i] == cc)
-		{
-			return ((char *)&s[i]);
-		}
-		i++;
-	}
-	if (s[i] == cc)
-		return ((char *)&s[i]);
-	return (NULL);
-}
-
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*substr;
-	size_t	i;
-	size_t	size;
-
-	if (!s)
-		return (NULL);
-	size = ft_strlen(s);
-	if (start >= size)
-		return (ft_strdup(""));
-	if (len > ft_strlen(s + start))
-		len = ft_strlen(s + start);
-	i = 0;
-	substr = (char *)malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (NULL);
-	while (i < len && s[start + i] != '\0')
-	{
-		substr[i] = s[start + i];
-		i++;
-	}
-	substr[i] = '\0';
-	return (substr);
-}
-
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
