@@ -6,14 +6,14 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/15 19:17:04 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:52:50 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "get_next_line.h"
 
- char *put_in_stash(int fd, char *buffer, char *stash)
+char	*put_in_stash(int fd, char *buffer, char *stash)
 {
 	char	*temp;
 	ssize_t	bytesread;
@@ -44,32 +44,33 @@
 	return (stash);
 }
 
-char *make_line(char *stash)
+char	*make_line(char *stash)
 {
 	size_t	i;
 	char	*sub;
 
 	i = 0;
-	while (stash[i] != '\0' && stash[i] != '\n')
+	if (stash[i] == '\0')
+		return (NULL);
+	while (stash[i] != '\0')
 	{
+		if (stash[i] == '\n')
+		{
+			i++;
+			break;
+		}
 		i++;
 	}
-	if (stash[i] == '\0' || stash[1] == '\0')
-		return (NULL);
-	else
-	{
 	sub = (char *)malloc(sizeof(char) * (i + 2));
 	if (!sub)
 		return (NULL);
-	}
 	ft_strlcpy(sub, stash, i + 1);
-		sub[i] = '\n';
-		sub[i + 1] = '\0';
-    if (*sub == 0)
-    {
-        free(sub);
-        sub = NULL;
-    }
+		sub[i] = '\0';
+	if (*sub == 0)
+	{
+		free(sub);
+		sub = NULL;
+	}
 	return (sub);
 }
 
@@ -90,7 +91,7 @@ char	*remove_line_from_stash(char *stash, char *line)
 	}
 	j = 0;
 	i = ft_strlen(line);
-	while (stash[i])
+	while (stash[i] != '\0')
 		temp[j++] = stash[i++];
 	temp[j] = '\0';
 	free(stash);
@@ -102,12 +103,12 @@ char	*remove_line_from_stash(char *stash, char *line)
 	return (temp);
 }
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
 	char		*buffer;
-	char		*line;
+	char		*stash_tobe;
 	static char	*stash;
-	char *result;
+	char 		*line;
 
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
 	if (!buffer)
@@ -119,14 +120,13 @@ char *get_next_line(int fd)
 		stash = NULL;
 		buffer = NULL;
 		return (NULL);
-    }
-
-	line = put_in_stash(fd, buffer, stash);
-	if (!line)
+	}
+	stash_tobe = put_in_stash(fd, buffer, stash);
+	if (!stash_tobe)
         return (NULL);
-	result = make_line(line);
-	stash = remove_line_from_stash(line, result);
-	return (result);
+	line = make_line(stash_tobe);
+	stash = remove_line_from_stash(stash_tobe, line);
+	return (line);
 }
 
 
@@ -135,23 +135,21 @@ int main()
 	int fd;
 	char *result;
 
-	fd = open("test.txt", O_RDONLY);
+	fd = open("nl.txt", O_RDONLY);
 	result = get_next_line(fd);
 	printf("%s", result);
 	free(result);
-	result = get_next_line(fd);
-	printf("%s", result);
-	free(result);
-	result = get_next_line(fd);
-	printf("%s", result);
-	free(result);
-	result = get_next_line(fd);
-	printf("%s", result);
-	free(result);
-	result = get_next_line(fd);
-	printf("%s", result);
-	free(result);
+	// result = get_next_line(fd);
+	// printf("%s", result);
+	// free(result);
+	// result = get_next_line(fd);
+	// printf("%s", result);
+	// free(result);
+	// result = get_next_line(fd);
+	// printf("%s", result);
+	// free(result);
+	// result = get_next_line(fd);
+	// printf("%s", result);
+	// free(result);
 	close(fd);
-
 }
-
