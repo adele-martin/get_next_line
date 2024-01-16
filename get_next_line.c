@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/16 15:52:50 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:01:16 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*remove_line_from_stash(char *stash, char *line)
 char	*get_next_line(int fd)
 {
 	char		*buffer;
-	char		*stash_tobe;
+	char		*new_stash;
 	static char	*stash;
 	char 		*line;
 
@@ -121,35 +121,35 @@ char	*get_next_line(int fd)
 		buffer = NULL;
 		return (NULL);
 	}
-	stash_tobe = put_in_stash(fd, buffer, stash);
-	if (!stash_tobe)
+	new_stash = put_in_stash(fd, buffer, stash);
+	if (!new_stash)
         return (NULL);
-	line = make_line(stash_tobe);
-	stash = remove_line_from_stash(stash_tobe, line);
+	line = make_line(new_stash);
+	stash = remove_line_from_stash(new_stash, line);
 	return (line);
 }
 
 
-int main()
-{
-	int fd;
-	char *result;
+// int main()
+// {
+// 	int fd;
+// 	char *result;
 
-	fd = open("nl.txt", O_RDONLY);
-	result = get_next_line(fd);
-	printf("%s", result);
-	free(result);
-	// result = get_next_line(fd);
-	// printf("%s", result);
-	// free(result);
-	// result = get_next_line(fd);
-	// printf("%s", result);
-	// free(result);
-	// result = get_next_line(fd);
-	// printf("%s", result);
-	// free(result);
-	// result = get_next_line(fd);
-	// printf("%s", result);
-	// free(result);
-	close(fd);
-}
+// 	fd = open("41_no_nl", O_RDONLY);
+// 	result = get_next_line(fd);
+// 	printf("%s", result);
+// 	free(result);
+// 	// result = get_next_line(fd);
+// 	// printf("%s", result);
+// 	// free(result);
+// 	// result = get_next_line(fd);
+// 	// printf("%s", result);
+// 	// free(result);
+// 	// result = get_next_line(fd);
+// 	// printf("%s", result);
+// 	// free(result);
+// 	// result = get_next_line(fd);
+// 	// printf("%s", result);
+// 	// free(result);
+// 	close(fd);
+// }
