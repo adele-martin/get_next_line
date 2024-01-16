@@ -6,7 +6,7 @@
 /*   By: ademarti <ademarti@student.42berlin.de     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:57:39 by ademarti          #+#    #+#             */
-/*   Updated: 2024/01/16 16:01:16 by ademarti         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:54:28 by ademarti         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,27 +129,26 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
+int main()
+{
+	int fd;
+	char *result;
 
-// int main()
-// {
-// 	int fd;
-// 	char *result;
-
-// 	fd = open("41_no_nl", O_RDONLY);
-// 	result = get_next_line(fd);
-// 	printf("%s", result);
-// 	free(result);
-// 	// result = get_next_line(fd);
-// 	// printf("%s", result);
-// 	// free(result);
-// 	// result = get_next_line(fd);
-// 	// printf("%s", result);
-// 	// free(result);
-// 	// result = get_next_line(fd);
-// 	// printf("%s", result);
-// 	// free(result);
-// 	// result = get_next_line(fd);
-// 	// printf("%s", result);
-// 	// free(result);
-// 	close(fd);
-// }
+	fd = open("41_no_nl", O_RDONLY);
+	result = get_next_line(fd);
+	printf("%s", result);
+	free(result);
+	result = get_next_line(fd);
+	printf("%s", result);
+	free(result);
+	// result = get_next_line(fd);
+	// printf("%s", result);
+	// free(result);
+	// result = get_next_line(fd);
+	// printf("%s", result);
+	// free(result);
+	// result = get_next_line(fd);
+	// printf("%s", result);
+	// free(result);
+	close(fd);
+}
